@@ -1,8 +1,48 @@
-This tutorial assumes you have access to the [Google Cloud Platform](https://cloud.google.com).
-
 # Create single node Kubernetes cluster using kubeadm on Google Cloud Platform (GCP)
 
-### Create compute resources
+This tutorial assumes you have access to the [Google Cloud Platform](https://cloud.google.com).
+
+## Google Cloud Platform SDK
+
+### Install the Google Cloud SDK
+
+Follow the Google Cloud SDK [documentation](https://cloud.google.com/sdk/) to install and configure the `gcloud` command line utility.
+
+Verify the Google Cloud SDK version is 262.0.0 or higher:
+
+```
+gcloud version
+```
+
+### Set a Default Compute Region and Zone
+
+This tutorial assumes a default compute region and zone have been configured.
+
+If you are using the `gcloud` command-line tool for the first time `init` is the easiest way to do this:
+
+```
+gcloud init
+```
+
+Then be sure to authorize gcloud to access the Cloud Platform with your Google user credentials:
+
+```
+gcloud auth login
+```
+
+Next set a default compute region and compute zone:
+
+```
+gcloud config set compute/region us-west1
+```
+
+Set a default compute zone:
+
+```
+gcloud config set compute/zone us-west1-c
+```
+
+### Virtual Private Cloud Network
 In this section a dedicated Virtual Private Cloud (VPC) network will be setup to host the Kubernetes cluster. 
 
 Create the k8s-demo custom VPC network: 
@@ -17,21 +57,25 @@ gcloud compute networks subnets create kubernetes \
   --network k8s-network \
   --range 10.240.0.0/24
 ```
-Set firewall rule to allow internal traffic:
+
+### Firewall Rules
+Create a firewall rule that allows internal communication across all protocols:
 ```shell script
 gcloud compute firewall-rules create k8s-allow-internal \
   --allow tcp,udp,icmp \
   --network k8s-network \
   --source-ranges 10.240.0.0/24,10.200.0.0/16
 ```
-Set firewall rule to allow external traffic:
+Create a firewall rule that allows external SSH, ICMP, and HTTPS:
 ```shell script
 gcloud compute firewall-rules create k8s-allow-external \
   --allow tcp:22,tcp:6443,icmp \
   --network k8s-network \
   --source-ranges 0.0.0.0/0
 ```
-Create Kubernetes master VM using following command:
+
+### Compute Instance
+Create compute instance which will host the Kubernetes control plane:
 ````shell script
 gcloud compute instances create k8s-master \
     --async \
@@ -45,6 +89,7 @@ gcloud compute instances create k8s-master \
     --subnet kubernetes \
     --tags kubeadm-test,controller
 ````
+
 ### Deploy Kubernetes
 Use cgroup driver as systemd and other useful entries by creating a new file /etc/docker/daemon.json with below command: 
 ```shell script
