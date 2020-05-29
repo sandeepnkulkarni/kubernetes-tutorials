@@ -327,3 +327,10 @@ Remove kubeconfig file:
 ```shell script
 sudo rm -f $HOME/.kube/config
 ```
+
+### References
+
+https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/
+https://github.com/kelseyhightower/kubernetes-the-hard-way
+https://wiki.learnlinux.tv/index.php/How_to_build_your_own_Raspberry_Pi_Kubernetes_Cluster#Install_flannel_network_driver
+https://phoenixnap.com/kb/install-kubernetes-on-ubuntu
