@@ -111,12 +111,25 @@ After the installation is finished, add current user to the "docker" group to us
 sudo usermod -aG docker $USER
 ```
 
-### Configure boot options
-Edit /boot/cmndline.txt and add:
+### Enable support for cgroup swap limit capabilities
+Edit the file /etc/default/grub.d/50-cloudimg-settings.cfg:
 ```text
-cgroup_memory=1 cgroup_enable=memory
+sudo nano /etc/default/grub.d/50-cloudimg-settings.cfg
+```
+Modify the entry for GRUB_CMDLINE_LINUX_DEFAULT and add cgroup_enable=memory swapaccount=1 like below: 
+```text
+GRUB_CMDLINE_LINUX_DEFAULT="console=ttyS0 cgroup_enable=memory swapaccount=1"
+```
+Save the changes and now update grub with command:
+```shell script
+sudo update-grub
+```
+Reboot Kubenetes master server now:
+```shell script
+sudo reboot
 ```
 
+### Set up the Docker daemon options
 Use cgroup driver as systemd and other Docker deamon options by creating a new file /etc/docker/daemon.json with below command: 
 ```shell script
 cat <<EOF | sudo tee /etc/docker/daemon.json
@@ -131,6 +144,7 @@ cat <<EOF | sudo tee /etc/docker/daemon.json
 EOF
 ```
 
+### Enable IP forwarding 
 Enable IP forwarding by editing /etc/sysctl.conf:
 ```text
 sudo nano /etc/sysctl.conf
