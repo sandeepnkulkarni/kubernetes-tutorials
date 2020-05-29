@@ -280,11 +280,11 @@ This node has joined the cluster:
 Run 'kubectl get nodes' on the control-plane to see this node join the cluster.
 ```
 ### Reset Kubernetes Cluster
-Use kubernetest reset command like below:
+Use kubeadm reset command like below:
 ```shell script
 sudo kubeadm reset
 ```
-Sameple output:
+Sample output:
 ```shell script
 $ sudo kubeadm reset
 [reset] Reading configuration from the cluster...
