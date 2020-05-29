@@ -89,9 +89,35 @@ gcloud compute instances create k8s-master \
     --subnet kubernetes \
     --tags kubeadm-test,controller
 ````
+After waiting for some time, continue to check if the instance is available with below command:
+```shell script
+gcloud compute instances list
+```
 
-### Deploy Kubernetes
-Use cgroup driver as systemd and other useful entries by creating a new file /etc/docker/daemon.json with below command: 
+### SSH Access
+SSH access to the k8s-master compute instances can be gained by running below command:
+```shell script
+gcloud compute ssh k8s-master
+```
+
+### Deploy Docker
+Install latest Docker container runtime using following command:
+```shell script
+curl -sSL get.docker.com | sh
+```
+
+After the installation is finished, add current user to the "docker" group to use Docker as a non-root user with command:
+```shell script
+sudo usermod -aG docker $USER
+```
+
+### Configure boot options
+Edit /boot/cmndline.txt and add:
+```text
+cgroup_memory=1 cgroup_enable=memory
+```
+
+Use cgroup driver as systemd and other Docker deamon options by creating a new file /etc/docker/daemon.json with below command: 
 ```shell script
 cat <<EOF | sudo tee /etc/docker/daemon.json
 {
@@ -104,16 +130,36 @@ cat <<EOF | sudo tee /etc/docker/daemon.json
 }
 EOF
 ```
+
+Enable IP forwarding by editing /etc/sysctl.conf:
+```text
+sudo nano /etc/sysctl.conf
+```
+and uncomment following line:
+```text
+#net.ipv4.ip_forward=1
+```
+
 Reboot Kubenetes master server now:
 ```shell script
 sudo reboot
 ```
+
+### Deploy Kubernetes packages
 Add Kubernetes APT entry into source with:
 ```shell script
 cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
 deb https://apt.kubernetes.io/ kubernetes-xenial main
 EOF
 ```
+
+Install required Kubernetes packages:
+```shell script
+sudo apt update
+sudo apt install kubeadm kubectl kubelet
+```
+
+### Initialize Kubernetes
 Run following command to start creation of Kubernetes cluster:
 ```shell script
 sudo kubeadm init --pod-network-cidr=10.244.0.0/16
