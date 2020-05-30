@@ -316,17 +316,17 @@ kubectl get pods --all-namespaces -o wide
 Sample output:
 ```text
 $ kubectl get pods --all-namespaces -o wide
-NAMESPACE     NAME                                   READY   STATUS    RESTARTS   AGE     IP            NODE         NOMINATED NODE   READINESS GATES
-kube-system   coredns-66bff467f8-5qh45               1/1     Running   0          4m33s   10.244.0.2    k8s-master   <none>           <none>
-kube-system   coredns-66bff467f8-qs4mb               1/1     Running   0          4m33s   10.244.0.3    k8s-master   <none>           <none>
-kube-system   etcd-k8s-master                        1/1     Running   0          4m50s   10.240.0.10   k8s-master   <none>           <none>
-kube-system   kube-apiserver-k8s-master              1/1     Running   0          4m49s   10.240.0.10   k8s-master   <none>           <none>
-kube-system   kube-controller-manager-k8s-master     1/1     Running   0          4m50s   10.240.0.10   k8s-master   <none>           <none>
-kube-system   kube-flannel-ds-amd64-9t287            1/1     Running   0          3m19s   10.240.0.10   k8s-master   <none>           <none>
-kube-system   kube-proxy-4rzz2                       1/1     Running   0          4m33s   10.240.0.10   k8s-master   <none>           <none>
-kube-system   kube-scheduler-k8s-master              1/1     Running   0          4m50s   10.240.0.10   k8s-master   <none>           <none>
+NAMESPACE     NAME                                 READY   STATUS    RESTARTS   AGE     IP            NODE         NOMINATED NODE   READINESS GATES
+kube-system   coredns-66bff467f8-94knl             1/1     Running   0          3m30s   10.244.0.3    k8s-master   <none>           <none>
+kube-system   coredns-66bff467f8-qxhpm             1/1     Running   0          3m30s   10.244.0.2    k8s-master   <none>           <none>
+kube-system   etcd-k8s-master                      1/1     Running   0          3m46s   10.240.0.10   k8s-master   <none>           <none>
+kube-system   kube-apiserver-k8s-master            1/1     Running   0          3m46s   10.240.0.10   k8s-master   <none>           <none>
+kube-system   kube-controller-manager-k8s-master   1/1     Running   0          3m46s   10.240.0.10   k8s-master   <none>           <none>
+kube-system   kube-flannel-ds-amd64-cbg6m          1/1     Running   0          81s     10.240.0.10   k8s-master   <none>           <none>
+kube-system   kube-proxy-sjwt6                     1/1     Running   0          3m30s   10.240.0.10   k8s-master   <none>           <none>
+kube-system   kube-scheduler-k8s-master            1/1     Running   0          3m46s   10.240.0.10   k8s-master   <none>           <none>
 ``` 
-Allow master/controller to schedule pods by running brlow command:
+By default, your cluster will not schedule Pods on the control-plane node for security reasons. Allow master/controller to schedule pods by running brlow command:
 ```shell script
 kubectl taint nodes --all node-role.kubernetes.io/master-
 ```
@@ -335,7 +335,7 @@ Sample output:
 $ kubectl taint nodes --all node-role.kubernetes.io/master-
 node/k8s-master untainted
 ```
-Unless this is done, any deployment will not run on this master. Example output from describe pod:
+Unless this is done, any pod deployments will not run on this master. Example output from describe pod:
 ```text
 Events:
   Type     Reason            Age                  From                   Message
@@ -346,7 +346,9 @@ Events:
   Normal   Created           74s                  kubelet, k8s-master    Created container echoserver
   Normal   Started           74s                  kubelet, k8s-master    Started container echoserver
 ```
-### Add worker node
+After this, the scheduler will then be able to schedule Pods everywhere.
+
+### (Optional) Add worker node
 In case you want to add worker node to the cluster, you can use command like below:
 ```shell script
 kubeadm join 10.240.0.10:6443 --token qime8q.8mpf97fdxxxxxxxx \
@@ -372,8 +374,10 @@ This node has joined the cluster:
 
 Run 'kubectl get nodes' on the control-plane to see this node join the cluster.
 ```
-### Reset Kubernetes Cluster
-Use kubeadm reset command like below:
+
+### (Optional) Reset Kubernetes Cluster
+
+To reset a Kubernetes cluster, use `kubeadm reset` command like below:
 ```shell script
 sudo kubeadm reset
 ```
