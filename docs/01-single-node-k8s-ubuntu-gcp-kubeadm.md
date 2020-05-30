@@ -144,6 +144,13 @@ Reboot Kubernetes master server with command:
 sudo reboot
 ```
 
+Verify that grub is correctly updated with `cat /proc/cmdline` command:
+```text
+$ cat /proc/cmdline
+BOOT_IMAGE=/boot/vmlinuz-5.3.0-1020-gcp console=ttyS0 cgroup_enable=memory swapaccount=1
+```
+Verify that `docker info` no longer shows warning.
+
 ### Set up the Docker daemon options
 Set cgroup driver to systemd and supply other Docker deamon options by creating a new file /etc/docker/daemon.json with below command: 
 ```shell script
@@ -159,6 +166,8 @@ cat <<EOF | sudo tee /etc/docker/daemon.json
 EOF
 ```
 
+This is a recommendation for using Docker as container runtime with Kubernetes. Refer: https://kubernetes.io/docs/setup/production-environment/container-runtimes/
+
 ### Enable IP forwarding 
 Enable IP forwarding by editing /etc/sysctl.conf:
 ```text
@@ -172,6 +181,11 @@ and uncomment following line:
 Reboot Kubernetes master server with command:
 ```shell script
 sudo reboot
+```
+
+Verify that `docker info` shows updated cgroup driver:
+```text
+ Cgroup Driver: systemd
 ```
 
 ### Deploy Kubernetes packages
