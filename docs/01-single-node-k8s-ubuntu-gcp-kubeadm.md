@@ -189,7 +189,7 @@ Verify that `docker info` shows updated cgroup driver:
 ```
 
 ### Deploy Kubernetes packages
-Add Kubernetes APT entry into source with:
+Add Kubernetes APT entry into source with command:
 ```shell script
 cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
 deb https://apt.kubernetes.io/ kubernetes-xenial main
@@ -198,8 +198,12 @@ EOF
 
 Install required Kubernetes packages:
 ```shell script
-sudo apt update
-sudo apt install -y kubeadm kubectl kubelet
+{
+  curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+  sudo apt update
+  sudo apt install -y kubeadm kubectl kubelet
+  sudo apt-mark hold kubelet kubeadm kubectl
+}
 ```
 
 ### Initialize Kubernetes
