@@ -1,4 +1,4 @@
-# Create single node Kubernetes cluster using kubeadm on Google Cloud Platform (GCP)
+# Create single node Kubernetes cluster on Ubuntu using kubeadm on Google Cloud Platform (GCP)
 
 This tutorial assumes you have access to the [Google Cloud Platform](https://cloud.google.com).
 
@@ -75,7 +75,7 @@ gcloud compute firewall-rules create k8s-allow-external \
 ```
 
 ### Compute Instance
-Create compute instance which will host the Kubernetes control plane:
+Create Ubuntu 18.04 compute instance which will host the Kubernetes control plane:
 ````shell script
 gcloud compute instances create k8s-master \
     --async \
@@ -89,17 +89,27 @@ gcloud compute instances create k8s-master \
     --subnet kubernetes \
     --tags kubeadm-test,controller
 ````
+
+We have chosen n1-standard-2 as machine type instead of n1-standard-1. This is because preflight check in kubeadm does not allow single CPU setup to proceed with installation. You will see below warning instead:
+```text
+[init] Using Kubernetes version: v1.18.3
+[preflight] Running pre-flight checks
+error execution phase preflight: [preflight] Some fatal errors occurred:
+        [ERROR NumCPU]: the number of available CPUs 1 is less than the required 2
+```
+
 After waiting for some time, continue to check if the instance is available with below command:
 ```shell script
 gcloud compute instances list
 ```
 
 ### SSH Access
-SSH access to the k8s-master compute instances can be gained by running below command:
+SSH access to the k8s-master compute instance can be gained by running below command:
 ```shell script
 gcloud compute ssh k8s-master
 ```
 
+## Kubernetes Setup
 ### Deploy Docker
 Install latest Docker container runtime using following command:
 ```shell script
@@ -112,6 +122,11 @@ sudo usermod -aG docker $USER
 ```
 
 ### Enable support for cgroup swap limit capabilities
+There is a need to enable support for cgroup swap limit on Ubuntu 18.04. Otherwise `docker info` command will show below warning:
+```text
+WARNING: No swap limit support
+```
+
 Edit the file /etc/default/grub.d/50-cloudimg-settings.cfg:
 ```text
 sudo nano /etc/default/grub.d/50-cloudimg-settings.cfg
@@ -120,17 +135,17 @@ Modify the entry for GRUB_CMDLINE_LINUX_DEFAULT and add cgroup_enable=memory swa
 ```text
 GRUB_CMDLINE_LINUX_DEFAULT="console=ttyS0 cgroup_enable=memory swapaccount=1"
 ```
-Save the changes and now update grub with command:
+Save the changes and update grub with below command:
 ```shell script
 sudo update-grub
 ```
-Reboot Kubenetes master server now:
+Reboot Kubernetes master server with command:
 ```shell script
 sudo reboot
 ```
 
 ### Set up the Docker daemon options
-Use cgroup driver as systemd and other Docker deamon options by creating a new file /etc/docker/daemon.json with below command: 
+Set cgroup driver to systemd and supply other Docker deamon options by creating a new file /etc/docker/daemon.json with below command: 
 ```shell script
 cat <<EOF | sudo tee /etc/docker/daemon.json
 {
@@ -154,7 +169,7 @@ and uncomment following line:
 #net.ipv4.ip_forward=1
 ```
 
-Reboot Kubenetes master server now:
+Reboot Kubernetes master server with command:
 ```shell script
 sudo reboot
 ```
@@ -170,7 +185,7 @@ EOF
 Install required Kubernetes packages:
 ```shell script
 sudo apt update
-sudo apt install kubeadm kubectl kubelet
+sudo apt install -y kubeadm kubectl kubelet
 ```
 
 ### Initialize Kubernetes
