@@ -326,7 +326,7 @@ kube-system   kube-flannel-ds-amd64-cbg6m          1/1     Running   0          
 kube-system   kube-proxy-sjwt6                     1/1     Running   0          3m30s   10.240.0.10   k8s-master   <none>           <none>
 kube-system   kube-scheduler-k8s-master            1/1     Running   0          3m46s   10.240.0.10   k8s-master   <none>           <none>
 ``` 
-By default, your cluster will not schedule Pods on the control-plane node for security reasons. Allow master/controller to schedule pods by running brlow command:
+By default, your cluster will not schedule Pods on the control-plane node for security reasons. Allow master/controller to schedule pods by running below command:
 ```shell script
 kubectl taint nodes --all node-role.kubernetes.io/master-
 ```
@@ -335,7 +335,9 @@ Sample output:
 $ kubectl taint nodes --all node-role.kubernetes.io/master-
 node/k8s-master untainted
 ```
-Unless this is done, any pod deployments will not run on this master. Example output from describe pod:
+After this, the scheduler will then be able to schedule Pods everywhere.
+
+Unless this is done, any pod deployments will not run on this master. Example output from describe pod where master node has taint:
 ```text
 Events:
   Type     Reason            Age                  From                   Message
@@ -346,7 +348,6 @@ Events:
   Normal   Created           74s                  kubelet, k8s-master    Created container echoserver
   Normal   Started           74s                  kubelet, k8s-master    Started container echoserver
 ```
-After this, the scheduler will then be able to schedule Pods everywhere.
 
 ### (Optional) Add worker node
 In case you want to add worker node to the cluster, you can use command like below:
