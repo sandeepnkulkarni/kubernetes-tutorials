@@ -1,4 +1,4 @@
-### (Optional) Reset Kubernetes Cluster
+# Reset Kubernetes Cluster
 
 To reset a Kubernetes cluster, use `kubeadm reset` command like below:
 ```shell script
