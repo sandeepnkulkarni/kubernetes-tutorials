@@ -1,11 +1,11 @@
 # Reset Kubernetes Cluster
 
 To reset a Kubernetes cluster, use `kubeadm reset` command like below:
-```shell script
+```
 sudo kubeadm reset
 ```
 Sample output:
-```text
+```
 $ sudo kubeadm reset
 [reset] Reading configuration from the cluster...
 [reset] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -oyaml'
@@ -37,14 +37,14 @@ rm -f $HOME/.kube/config
 As mentioned in the output, there are additional commands that needs to be run to complete the clean-up.
 
 Remove CNI configuration entries:
-```shell script
+```
 sudo rm -f /etc/cni/net.d/10-flannel.conflist
 ``` 
 Reset iptables:
-```shell script
+```
 sudo iptables -F && sudo iptables -t nat -F && sudo iptables -t mangle -F && sudo iptables -X
 ```
 Remove kubeconfig file:
-```shell script
+```
 sudo rm -f $HOME/.kube/config
 ```
