@@ -1,4 +1,4 @@
-![Kubernetes](img/kubernetes_128.png)
+![Kubernetes](img/kubernetes_small.png)
 
 * * *
 
