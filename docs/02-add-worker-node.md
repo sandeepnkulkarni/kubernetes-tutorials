@@ -1,6 +1,7 @@
 # Add worker node to Kubernetes Cluster
 
 In case you want to add worker node to the existing Kubernetes cluster, you can use `kubeadm join` command like below:
+
 ```shell script
 kubeadm join 10.240.0.10:6443 --token qime8q.8mpf97fdxxxxxxxx \
     --discovery-token-ca-cert-hash sha256:8f61ee1955f194f6cc7a6888baf37447b29a86a93b214205154a8abdxxxxxxxx
