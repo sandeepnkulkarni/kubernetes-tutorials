@@ -2,20 +2,20 @@
 
 In case you want to add worker node to the existing Kubernetes cluster, you can use `kubeadm join` command like below:
 
-```shell script
+```
 kubeadm join 10.240.0.10:6443 --token qime8q.8mpf97fdxxxxxxxx \
     --discovery-token-ca-cert-hash sha256:8f61ee1955f194f6cc7a6888baf37447b29a86a93b214205154a8abdxxxxxxxx
 ```
 
 Tokens have a default expiry period of 24 hrs, so in case you need to generate new token use below command:
-```shell script
+```
 kubeadm token create --print-join-command
 ```
 
 Once you have a valid token, you can run the `kubeadm join` command.
 
 Sample output:
-```text
+```
 $ sudo kubeadm join 10.240.0.10:6443 --token qime8q.8mpf97fdxxxxxxxx \
     --discovery-token-ca-cert-hash sha256:8f61ee1955f194f6cc7a6888baf37447b29a86a93b214205154a8abdxxxxxxxx
 W0529 07:12:00.016796    4465 join.go:346] [preflight] WARNING: JoinControlPane.controlPlane settings will be ignored when control-plane flag is not set.
