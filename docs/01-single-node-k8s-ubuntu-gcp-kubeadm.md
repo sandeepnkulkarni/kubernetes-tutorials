@@ -349,82 +349,9 @@ Events:
   Normal   Started           74s                  kubelet, k8s-master    Started container echoserver
 ```
 
-### (Optional) Add worker node
-In case you want to add worker node to the cluster, you can use command like below:
-```shell script
-kubeadm join 10.240.0.10:6443 --token qime8q.8mpf97fdxxxxxxxx \
-    --discovery-token-ca-cert-hash sha256:8f61ee1955f194f6cc7a6888baf37447b29a86a93b214205154a8abdxxxxxxxx
-```
-Sample output:
-```text
-$ sudo kubeadm join 10.240.0.10:6443 --token qime8q.8mpf97fdxxxxxxxx \
-    --discovery-token-ca-cert-hash sha256:8f61ee1955f194f6cc7a6888baf37447b29a86a93b214205154a8abdxxxxxxxx
-W0529 07:12:00.016796    4465 join.go:346] [preflight] WARNING: JoinControlPane.controlPlane settings will be ignored when control-plane flag is not set.
-[preflight] Running pre-flight checks
-[preflight] Reading configuration from the cluster...
-[preflight] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -oyaml'
-[kubelet-start] Downloading configuration for the kubelet from the "kubelet-config-1.18" ConfigMap in the kube-system namespace
-[kubelet-start] Writing kubelet configuration to file "/var/lib/kubelet/config.yaml"
-[kubelet-start] Writing kubelet environment file with flags to file "/var/lib/kubelet/kubeadm-flags.env"
-[kubelet-start] Starting the kubelet
-[kubelet-start] Waiting for the kubelet to perform the TLS Bootstrap...
-
-This node has joined the cluster:
-* Certificate signing request was sent to apiserver and a response was received.
-* The Kubelet was informed of the new secure connection details.
-
-Run 'kubectl get nodes' on the control-plane to see this node join the cluster.
-```
-
-### (Optional) Reset Kubernetes Cluster
-
-To reset a Kubernetes cluster, use `kubeadm reset` command like below:
-```shell script
-sudo kubeadm reset
-```
-Sample output:
-```shell script
-$ sudo kubeadm reset
-[reset] Reading configuration from the cluster...
-[reset] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -oyaml'
-[reset] WARNING: Changes made to this host by 'kubeadm init' or 'kubeadm join' will be reverted.
-[reset] Are you sure you want to proceed? [y/N]: y
-[preflight] Running pre-flight checks
-[reset] Removing info for node "k8s-master" from the ConfigMap "kubeadm-config" in the "kube-system" Namespace
-[reset] failed to remove etcd member: etcdserver: re-configuration failed due to not enough started members.Please manually remove this etcd member using etcdctl
-[reset] Stopping the kubelet service
-[reset] Unmounting mounted directories in "/var/lib/kubelet"
-[reset] Deleting contents of config directories: [/etc/kubernetes/manifests /etc/kubernetes/pki]
-[reset] Deleting files: [/etc/kubernetes/admin.conf /etc/kubernetes/kubelet.conf /etc/kubernetes/bootstrap-kubelet.conf /etc/kubernetes/controller-manager.conf /etc/kubernetes/scheduler.conf]
-[reset] Deleting contents of stateful directories: [/var/lib/etcd /var/lib/kubelet /var/lib/dockershim /var/run/kubernetes /var/lib/cni]
-
-The reset process does not clean CNI configuration. To do so, you must remove /etc/cni/net.d
-
-The reset process does not reset or clean up iptables rules or IPVS tables.
-If you wish to reset iptables, you must do so manually by using the "iptables" command.
-
-If your cluster was setup to utilize IPVS, run ipvsadm --clear (or similar)
-to reset your system's IPVS tables.
-
-The reset process does not clean your kubeconfig files and you must remove them manually.
-Please, check the contents of the $HOME/.kube/config file.
-
-rm -f $HOME/.kube/config
-```
-As mentioned in the output, there are additional commands that needs to be run to complete the clean-up.
-
-Remove CNI configuration entries:
-```shell script
-sudo rm -f /etc/cni/net.d/10-flannel.conflist
-``` 
-Reset iptables:
-```shell script
-sudo iptables -F && sudo iptables -t nat -F && sudo iptables -t mangle -F && sudo iptables -X
-```
-Remove kubeconfig file:
-```shell script
-sudo rm -f $HOME/.kube/config
-```
+### Related links:
+* [Add worker node to Kubernetes Cluster](02-add-worker-node.md)
+* [Reset Kubernetes Cluster](03-reset-kubernetes-cluster.md)
 
 ### References
 
