@@ -1,6 +1,6 @@
 # Kubernetes Tutorials
 
-![Kubernetes](img/kubernetes.png)
+![Kubernetes](img/kubernetes_128.png)
 
 * [Create single node Kubernetes cluster using kubeadm on Google Cloud Platform (GCP)](docs/01-single-node-k8s-ubuntu-gcp-kubeadm.md)
 * [Add worker node to Kubernetes Cluster](docs/02-add-worker-node.md)
