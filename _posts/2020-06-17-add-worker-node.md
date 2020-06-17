@@ -1,3 +1,9 @@
+---
+layout: post
+title: Add worker node to Kubernetes Cluster
+date: 2020-06-07 15:00:00 +0530
+---
+
 # Add worker node to Kubernetes Cluster
 
 In case you want to add worker node to the existing Kubernetes cluster, you can use `kubeadm join` command like below:
