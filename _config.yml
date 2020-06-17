@@ -19,7 +19,7 @@ favicon: assets/sk_favicon.ico
 
 # Header and footer text
 header_text: Kubernetes Tutorials
-header_feature_image: assets/img/kubernetes_128.png
+header_feature_image: assets/img/kubernetes.png
 footer_text: >
   Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/sylhare/Type-on-Strap">Type on Strap</a>
 
