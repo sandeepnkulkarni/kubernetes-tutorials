@@ -14,5 +14,11 @@ description: Kubernetes Tutorials to get you started!
 # Your name to show in the footer
 author: Sandeep Kulkarni
 
+# Header and footer text
+header_text: Kubernetes Tutorials
+header_feature_image: assets/img/kubernetes_128.png
+footer_text: >
+  Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/sylhare/Type-on-Strap">Type on Strap</a>
+
 # Blog
 excerpt: false                                           # Or "truncate" (first 250 characters), "false" to disable
