@@ -18,8 +18,8 @@ avatar: assets/img/sk_logo_medium.png
 favicon: assets/sk_favicon.ico
 
 # Header and footer text
-header_text: Kubernetes Tutorials  # Change Blog header text
-header_feature_image: assets/img/kubernetes-big.png
+header_text: 
+header_feature_image: 
 footer_text: >
   Theme by <a href="https://github.com/sylhare/Type-on-Strap">Type on Strap</a>
 
