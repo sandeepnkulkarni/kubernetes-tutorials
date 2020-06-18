@@ -17,5 +17,33 @@ author: Sandeep Kulkarni
 avatar: assets/img/kubernetes_128.png
 favicon: assets/sk_favicon.ico
 
+# Header and footer text
+header_text: Kubernetes Tutorials  # Change Blog header text
+header_feature_image: assets/img/kubernetes.png
+footer_text: >
+  Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/sylhare/Type-on-Strap">Type on Strap</a>
+
 # Blog
-excerpt: false                                           # Or "truncate" (first 250 characters), "false" to disable
+excerpt: false                                          # Or "truncate" (first 250 characters), "false" to disable
+post_navigation: true
+color_image: /assets/img/lineart.png                    # A bit transparent for color posts.
+
+# PAGINATION
+paginate: 5
+paginate_path: "/blog/page:num"
+
+# PORTFOLIO
+collections:
+  portfolio:
+    output: true
+    permalink: /:collection/:name
+
+# BUILD SETTINGS
+markdown: kramdown
+highlighter: rouge
+sass:
+  sass_dir: _sass
+  style: :compressed
+plugins: [jekyll-paginate, jekyll-seo-tag, jekyll-feed]
+exclude: [".jekyll-cache", "Gemfile", "Gemfile.lock", "type-on-strap.gemspec", "*.gem", ".idea", "vendor/*", ".travis.yml",
+          "LICENSE", "README.md", "screenshot.png", "assets/package.json", "assets/node_modules", "assets/gulpfile.js"]
