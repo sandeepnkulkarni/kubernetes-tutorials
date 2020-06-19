@@ -13,8 +13,9 @@
 
 .kubernetes-tutorial-info p {
   margin-bottom: 10px;
+  color: #1A1A1D;
   font-size: 1.3125rem;
-  font-weight: 200;
+  font-weight: 300;
 }
 
 @media (min-width: 512px) {
