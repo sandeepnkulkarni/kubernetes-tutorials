@@ -57,14 +57,14 @@ social-network-links:
 # Personalize the colors in your website. Colour values can be any valid CSS colour
 
 navbar-col: "#C1C8E4"
-navbar-text-col: "#190090"
+navbar-text-col: "#1A1A1D"
 navbar-children-col: "#C1C8E4"
 page-col: "#FFFFFF"
-link-col: "#5680E9"
-hover-col: "#84CEEB"
+link-col: "#123C69"
+hover-col: "#25274D"
 footer-col: "#C1C8E4"
-footer-text-col: "#190090"
-footer-link-col: "#5680E9"
+footer-text-col: "#1A1A1D"
+footer-link-col: "#123C69" 
 
 # Alternatively, the navbar, footer, and page background can be set to use background images
 # instead of colour
