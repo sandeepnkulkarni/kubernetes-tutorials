@@ -2,6 +2,7 @@
 layout: post
 title: Reset Kubernetes Cluster
 date: 2020-06-07 19:00:00 +0530
+tags: [kubernetes, reset, cluster]
 ---
 
 In this tutorial, we will learn about how to reset Kubernetes Cluster.

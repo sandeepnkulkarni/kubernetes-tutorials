@@ -2,6 +2,7 @@
 layout: post
 title: Add worker node to Kubernetes Cluster
 date: 2020-06-07 15:00:00 +0530
+tags: [kubernetes, worker-node]
 ---
 
 In this tutorial, we will learn about how to add worker node to Kubernetes Cluster. To learn more about how to create a Kubernetes cluster, please refer [Create single node Kubernetes cluster on Ubuntu using kubeadm on Google Cloud Platform (GCP)](2020-06-17-single-node-k8s-ubuntu-gcp-kubeadm.md)

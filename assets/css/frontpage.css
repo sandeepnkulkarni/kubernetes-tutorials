@@ -1,0 +1,24 @@
+#created-by {
+  text-align: right;
+  margin-top: 10px;
+  color: #DC143C;
+  font-size: 0.9em;
+}
+
+.kubernetes-tutorial-info {
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background: #FFF5EE;
+  padding: 15px 15px;
+}
+
+.kubernetes-tutorial-info p {
+  margin-bottom: 10px;
+  font-size: 1.3125rem;
+  font-weight: 200;
+}
+
+@media (min-width: 512px) {
+  .kubernetes-tutorial-info {
+    padding: 15px 15px;
+  }
+}

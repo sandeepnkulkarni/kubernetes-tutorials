@@ -1,7 +1,7 @@
-remote_theme: sylhare/Type-on-Strap
+remote_theme: daattali/beautiful-jekyll@3.0.0
 
-baseurl: "/kubernetes-tutorials"
-url: "https://sandeepnkulkarni.github.io/"
+baseurl: "/kubernetes-tutorials/"
+url: "https://sandeepnkulkarni.github.io"
 
 # --- Basic options --- #
 
@@ -14,46 +14,116 @@ description: Kubernetes Tutorials to get you started!
 # Your name to show in the footer
 author: Sandeep Kulkarni
 
-avatar: assets/img/sk_logo_medium.png
-favicon: assets/sk_favicon.ico
+# --- List of links in the navigation bar --- #
 
-# Header and footer text
-header_text: Kubernetes Tutorials  # Change Blog header text
-header_feature_image: 
-footer_text: >
-  Theme by <a href="https://github.com/sylhare/Type-on-Strap">Type on Strap</a>
+navbar-links:
+  Home: "/"
+  About me: "https://sandeepnkulkarni.github.io"
 
-# Blog
-excerpt: true                                           # Or "truncate" (first 250 characters), "false" to disable
-post_navigation: true
-color_image: /assets/img/lineart.png                    # A bit transparent for color posts.
+# --- Logo --- #
 
-# Features
-katex: true                                             # Enable if using math markup
-google_analytics:                                       # Tracking ID, e.g. "UA-000000-01"
-disqus_shortname:                                       # Your discus shortname for comments
-layout_variables:                                       # Open the "_sass > base" folder, and open "_variables.scss"
-footer_icons:                                           # In _data/social.yml
-share_buttons:                                          # In _data/social.yml
-authors:                                                # In _data/authors.yml
-language:                                               # In _data/language.yml
+# Image to show in the navigation bar - works best with a square image
+# Remove this parameter if you don't want an image in the navbar
+avatar: "assets/img/sk_logo_medium.png"
 
-# PAGINATION
-paginate: 5
-paginate_path: "/blog/page:num"
+# By default, the image is cut into a circle. You can disable this behaviour here.
+round-avatar: true
 
-# PORTFOLIO
-collections:
-  portfolio:
-    output: true
-    permalink: /:collection/:name
+# If you want to have an image logo in the top-left corner instead of the title text,
+# then specify the following parameter
+#title-img: "/assets/img/dotnetcore_logo.png"
 
-# BUILD SETTINGS
+# How to display the link to your website in the footer
+# Remove this if you don't want a link in the footer
+url-pretty: "https://sandeepnkulkarni.github.io"
+
+# Create a "tags" index page and make tags on each post clickable
+link-tags: true
+
+# Excerpt Word Length - Truncates the excerpt to the specified number of words on the index page
+excerpt_length: 100
+
+# --- Footer options --- #
+
+# Select the social network links that you want to show in the footer.
+# Uncomment the links you want to show and add your information to each one.
+# If you don't want to show a link to an RSS feed, set rss to "false".
+social-network-links:
+  rss: true
+  github: sandeepnkulkarni
+
+# --- Colours / background image --- #
+
+# Personalize the colors in your website. Colour values can be any valid CSS colour
+
+navbar-col: "#FFF5EE"
+navbar-text-col: "#8B4513"
+navbar-children-col: "#FFF5EE"
+page-col: "#FFFFFF"
+link-col: "#808080"
+hover-col: "#A9A9A9"
+footer-col: "#FFF5EE"
+footer-text-col: "#8B4513"
+footer-link-col: "#DC143C"
+
+# Alternatively, the navbar, footer, and page background can be set to use background images
+# instead of colour
+
+#navbar-img: "/assets/img/bgimage.png"
+#footer-img: "/assets/img/bgimage.png"
+#page-img: "/assets/img/bgimage.png"
+
+# --- Misc --- #
+
+# Character used to separate site title and description in HTML document title
+# and RSS feed title
+title-separator: "-"
+
+# Ruby Date Format to show dates of posts
+date_format: "%B %-d, %Y"
+
+# --- You don't need to touch anything below here (but you can if you want) --- #
+
+# Output options (more information on Jekyll's site)
+timezone: "Asia/Kolkata"
 markdown: kramdown
 highlighter: rouge
-sass:
-  sass_dir: _sass
-  style: :compressed
-plugins: [jekyll-paginate, jekyll-seo-tag, jekyll-feed]
-exclude: [".jekyll-cache", "Gemfile", "Gemfile.lock", "type-on-strap.gemspec", "*.gem", ".idea", "vendor/*", ".travis.yml",
-          "LICENSE", "README.md", "screenshot.png", "assets/package.json", "assets/node_modules", "assets/gulpfile.js"]
+permalink: /:year-:month-:day-:title/
+paginate: 5
+
+kramdown:
+  input: GFM
+
+# Default YAML values (more information on Jekyll's site)
+defaults:
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      comments: true  # add comments to all blog posts
+      social-share: true # add social media sharing buttons to all blog posts
+      readtime: true # add estimated reading time on all blog posts
+  -
+    scope:
+      path: "" # all files
+    values:
+      layout: "page"
+      show-avatar: true
+
+# Exclude these files from production site
+exclude:
+  - CHANGELOG.md
+  - CNAME
+  - Dockerfile
+  - Gemfile
+  - Gemfile.lock
+  - LICENSE
+  - README.md
+  - Vagrantfile
+  - docs/
+
+plugins:
+  - jekyll-paginate
+  - jekyll-sitemap

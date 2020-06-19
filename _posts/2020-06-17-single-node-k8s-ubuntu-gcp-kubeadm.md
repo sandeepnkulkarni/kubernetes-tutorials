@@ -2,6 +2,7 @@
 layout: post
 title: Create single node Kubernetes cluster on Ubuntu using kubeadm on Google Cloud Platform (GCP)
 date: 2020-06-07 11:00:00 +0530
+tags: [kubernetes, kubeadm, cluster, gcp, ubuntu] 
 ---
 
 In this tutorial, we will try to create single node Kubernetes cluster on Ubuntu using kubeadm on Google Cloud Platform (GCP). 
