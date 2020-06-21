@@ -49,6 +49,7 @@ gcloud config set compute/zone us-west1-c
 ```
 
 ### Virtual Private Cloud Network
+
 In this section a dedicated Virtual Private Cloud (VPC) network will be setup to host the Kubernetes cluster. 
 
 Create the k8s-demo custom VPC network: 
@@ -67,6 +68,7 @@ gcloud compute networks subnets create kubernetes \
 ```
 
 ### Firewall Rules
+
 Create a firewall rule that allows internal communication across all protocols:
 
 ```
@@ -85,6 +87,7 @@ gcloud compute firewall-rules create k8s-allow-external \
 ```
 
 ### Compute Instance
+
 Create Ubuntu 18.04 compute instance which will host the Kubernetes control plane:
 
 ````
@@ -109,6 +112,8 @@ We have chosen n1-standard-2 as machine type instead of n1-standard-1. This is b
 error execution phase preflight: [preflight] Some fatal errors occurred:
         [ERROR NumCPU]: the number of available CPUs 1 is less than the required 2
 ```
+
+To learn more about recommended hardware and software requirements for `kubeadm`, please refer [kubeadm's minimum requirements](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#before-you-begin).
 
 After waiting for some time, continue to check if the instance is available with below command:
 
