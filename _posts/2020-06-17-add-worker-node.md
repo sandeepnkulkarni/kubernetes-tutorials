@@ -7,14 +7,17 @@ tags: [kubernetes, worker-node]
 
 In this tutorial, we will learn about how to add worker node to Kubernetes Cluster. To learn more about how to create a Kubernetes cluster, please refer [Create single node Kubernetes cluster on Ubuntu using kubeadm on Google Cloud Platform (GCP)](2020-06-17-single-node-k8s-ubuntu-gcp-kubeadm.md)
 
-In case you want to add worker node to the existing Kubernetes cluster, you can use `kubeadm join` command like below:
+In case you want to add worker node to an existing Kubernetes cluster, you can use `kubeadm join` command like below:
 
 ```
 kubeadm join 10.240.0.10:6443 --token qime8q.8mpf97fdxxxxxxxx \
     --discovery-token-ca-cert-hash sha256:8f61ee1955f194f6cc7a6888baf37447b29a86a93b214205154a8abdxxxxxxxx
 ```
 
-Tokens have a default expiry period of 24 hrs, so in case you need to generate new token use below command:
+When you configure a fresh Kubernetes cluster using `kubeadm init`, you will get the token information as part of the output itself. 
+
+However, tokens have a default expiry period of 24 hrs, so in case you need to generate new token to join worker node, use below command:
+
 ```
 kubeadm token create --print-join-command
 ```
@@ -22,6 +25,7 @@ kubeadm token create --print-join-command
 Once you have a valid token, you can run the `kubeadm join` command.
 
 Sample output:
+
 ```
 $ sudo kubeadm join 10.240.0.10:6443 --token qime8q.8mpf97fdxxxxxxxx \
     --discovery-token-ca-cert-hash sha256:8f61ee1955f194f6cc7a6888baf37447b29a86a93b214205154a8abdxxxxxxxx

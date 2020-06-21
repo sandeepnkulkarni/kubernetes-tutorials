@@ -1,11 +1,15 @@
 ---
 layout: post
-title: Reset Kubernetes Cluster
+title: Reset Kubernetes Cluster using kubeadm
 date: 2020-06-07 19:00:00 +0530
 tags: [kubernetes, reset, cluster]
 ---
 
-In this tutorial, we will learn about how to reset Kubernetes Cluster.
+In this tutorial, we will learn about how to reset single node/control-plane Kubernetes Cluster. It will wipe out Kubernetes cluster data that was configured using `kubeadm init` as described in [Create single node Kubernetes cluster on Ubuntu using kubeadm on Google Cloud Platform (GCP)](2020-06-17-single-node-k8s-ubuntu-gcp-kubeadm.md). Same steps which are mentioned below could be also performed on any Kubernetes cluster created on Ubuntu whether they are hosted on Google Cloud Platform (GCP) or not.  
+
+In case you have configured your single node/control-plane Kubernetes cluster using alternate methods, steps mentioned below may not be sufficient to completely wipe out Kubernetes configuration. There might be some additional steps involved to completely wipe out everything.
+
+## Reset Kubernetes cluster
 
 To reset a Kubernetes cluster, use `kubeadm reset` command like below:
 ```
